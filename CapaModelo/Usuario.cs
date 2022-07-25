@@ -11,6 +11,7 @@ namespace CapaModelo
         public int IdUsuario { get; set; }
         public string Nombres { get; set; }
         public string Apellidos { get; set; }
+        //Validar el correo
         public string Correo { get; set; }
         public string NombreUsuario { get; set; }
         public string Clave { get; set; }
