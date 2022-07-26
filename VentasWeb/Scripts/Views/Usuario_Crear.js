@@ -10,7 +10,8 @@ $(document).ready(function () {
             Nombres: "required",
             Apellidos: "required",
             Correo: "required",
-            Clave: "required"
+            Clave: "required",
+            Cedula: "required"
         },
         messages: {
             Nombres: "(*)",
@@ -95,7 +96,7 @@ $(document).ready(function () {
             { "data": "Nombres" },
             { "data": "Apellidos" },
             { "data": "Correo" },
-            { "data": "Cedula" },
+            { "data": "Cedula"},
             {
                 "data": "Activo", "render": function (data) {
                     if (data) {
@@ -121,8 +122,6 @@ $(document).ready(function () {
         },
         responsive: true
     });
-
-
 })
 
 
