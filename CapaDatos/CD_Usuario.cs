@@ -289,10 +289,5 @@ namespace CapaDatos
             return respuesta;
 
         }
-
-
-
     }
-
-  
 }
