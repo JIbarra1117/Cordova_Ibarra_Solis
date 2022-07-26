@@ -14,10 +14,11 @@ $(document).ready(function () {
             Cedula: "required"
         },
         messages: {
-            Nombres: "(*)",
-            Apellidos: "(*)",
-            Correo: "(*)",
-            Clave: "(*)"
+            Nombres: "* Se requiere el Nombre",
+            Apellidos: "* Se requiere el Apellido",
+            Correo: "* Se requiere el Correo",
+            Clave: "* Se requiere la Clave",
+            Cedula: "* Se requiere la Cedula"
         },
         errorElement: 'span'
     });
@@ -163,7 +164,6 @@ function abrirPopUpForm(json) {
 
 
 function Guardar() {
-    validarCedula();
     if ($("#form").valid()) {
 
         var request = {
@@ -205,7 +205,6 @@ function Guardar() {
         });
 
     }
-
 }
 
 
@@ -272,11 +271,12 @@ function validarCedula() {
         total = total % 10 ? 10 - total % 10 : 0;
 
         if (cad.charAt(longitud - 1) == total) {
-            document.getElementById("errorCedula").innerHTML = ("Cedula Válida");
+            document.getElementById("error").innerHTML = ("Cedula Válida");
             return true;
         } else {
-            document.getElementById("errorCedula").innerHTML = ("Cedula Inválida");
+            document.getElementById("error").innerHTML = ("Cedula Inválida");
             return false;
         }
     }
+    return false;
 }
