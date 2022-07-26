@@ -87,6 +87,7 @@ namespace CapaDatos
                                                   Nombres = dato.Element("Nombres").Value,
                                                   Apellidos = dato.Element("Apellidos").Value,
                                                   Correo = dato.Element("Correo").Value,
+                                                  Cedula = dato.Element("Cedula").Value,
                                                   Clave = dato.Element("Clave").Value,
 
                                               }).FirstOrDefault();
@@ -234,6 +235,7 @@ namespace CapaDatos
                     cmd.Parameters.AddWithValue("Nombres", oUsuario.Nombres);
                     cmd.Parameters.AddWithValue("Apellidos", oUsuario.Apellidos);
                     cmd.Parameters.AddWithValue("Correo", oUsuario.Correo);
+                    cmd.Parameters.AddWithValue("Cedula", oUsuario.Cedula);
                     cmd.Parameters.AddWithValue("Clave", oUsuario.Clave);
                     cmd.Parameters.AddWithValue("IdTienda", oUsuario.IdTienda);
                     cmd.Parameters.AddWithValue("IdRol", oUsuario.IdRol);

@@ -152,7 +152,7 @@ function abrirPopUpForm(json) {
         $("#txtClave").val("");
         $("#cboTienda").val($("#cboTienda option:first").val());
         $("#cboRol").val($("#cboRol option:first").val());
-        $("#txtCedula").val(json.Cedula);
+        $("#txtCedula").val("");
         $("#cboEstado").val(1);
         
         $("#txtClave").prop("disabled", false);
