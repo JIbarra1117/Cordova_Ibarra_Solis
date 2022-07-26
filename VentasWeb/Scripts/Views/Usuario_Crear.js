@@ -95,6 +95,7 @@ $(document).ready(function () {
             { "data": "Nombres" },
             { "data": "Apellidos" },
             { "data": "Correo" },
+            { "data": "Cedula" },
             {
                 "data": "Activo", "render": function (data) {
                     if (data) {
