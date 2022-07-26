@@ -145,6 +145,41 @@ namespace CapaDatos
             }
         }
 
+        public List<Usuario> ObtenerCorreos()
+        {
+            List<Usuario> listaCorreos = new List<Usuario>();
+            using (SqlConnection oConexion = new SqlConnection(Conexion.CN))
+            {
+                SqlCommand cmd = new SqlCommand("usp_ObtenerCorreos", oConexion);
+                cmd.CommandType = CommandType.StoredProcedure;
+
+                try
+                {
+                    oConexion.Open();
+                    SqlDataReader dr = cmd.ExecuteReader();
+
+                    while (dr.Read())
+                    {
+                        listaCorreos.Add(new Usuario()
+                        {
+                            Correo = dr["Correo"].ToString()
+                        });
+
+                    }
+                    dr.Close();
+
+                    return listaCorreos;
+
+                }
+                catch (Exception ex)
+                {
+                    listaCorreos = null;
+                    return listaCorreos;
+                }
+            }
+        }
+
+
         public List<Usuario> ObtenerUsuarios()
         {
             List<Usuario> rptListaUsuario = new List<Usuario>();
@@ -191,6 +226,7 @@ namespace CapaDatos
 
         public bool RegistrarUsuario(Usuario oUsuario)
         {
+            int conteo = 0;
             bool respuesta = true;
             using (SqlConnection oConexion = new SqlConnection(Conexion.CN))
             {
@@ -199,6 +235,21 @@ namespace CapaDatos
                     SqlCommand cmd = new SqlCommand("usp_RegistrarUsuario", oConexion);
                     cmd.Parameters.AddWithValue("Nombres", oUsuario.Nombres);
                     cmd.Parameters.AddWithValue("Apellidos", oUsuario.Apellidos);
+
+                    List<Usuario> lista = ObtenerCorreos();
+                    foreach (var item in lista)
+                    {
+                        if (oUsuario.Correo.Equals(item))
+                        {
+                            conteo++;
+                        }
+                    }
+
+                    if (conteo > 0)
+                    {
+                        respuesta = false;
+                        return respuesta;
+                    }
                     cmd.Parameters.AddWithValue("Correo", oUsuario.Correo);
                     cmd.Parameters.AddWithValue("Clave", oUsuario.Clave);
                     cmd.Parameters.AddWithValue("Cedula", oUsuario.Cedula);
@@ -228,7 +279,7 @@ namespace CapaDatos
         public bool ModificarUsuario(Usuario oUsuario)
         {
             bool respuesta = true;
-            if (ValidarContraseña(oUsuario.Clave)) {
+            if (!ValidarContraseña(oUsuario.Clave)) {
                 using (SqlConnection oConexion = new SqlConnection(Conexion.CN))
                 {
                     try
@@ -296,10 +347,9 @@ namespace CapaDatos
             return respuesta;
 
         }
-
         public bool ValidarContraseña(string texto)
         {
-            invalido = new Regex(@"^(?=.[a-z])(?=.[A-Z])(?=.\d)(?=.[$@$!%?&#.$($)$-$_])[A-Za-z\d$@$!%?&#.$($)$-$_]{6,10}$");
+            invalido = new Regex(@"^(?=.[a-z])(?=.[A-Z])(?=.\d)(?=.[$@$!%?&#.$($)$-$])[A-Za-z\d$@$!%?&#.$($)$-$]{6,10}$");
             if (invalido.IsMatch(texto))
                 return true;
             return false;

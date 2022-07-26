@@ -3,6 +3,7 @@ using CapaModelo;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.RegularExpressions;
 using System.Web;
 using System.Web.Mvc;
 using VentasWeb.Utilidades;
@@ -11,6 +12,8 @@ namespace VentasWeb.Controllers
 {
     public class UsuarioController : Controller
     {
+        private Regex invalido;
+
         // GET: Usuario
         public ActionResult Crear()
         {
@@ -27,18 +30,18 @@ namespace VentasWeb.Controllers
         public JsonResult Guardar(Usuario objeto)
         {
             bool respuesta = false;
+            if(ValidarContraseña(objeto.Clave)){
+                if (objeto.IdUsuario == 0)
+                {
+                    objeto.Clave = Encriptar.GetSHA256(objeto.Clave);
 
-            if (objeto.IdUsuario == 0)
-            {
-                objeto.Clave = Encriptar.GetSHA256(objeto.Clave);
-
-                respuesta = CD_Usuario.Instancia.RegistrarUsuario(objeto);
+                    respuesta = CD_Usuario.Instancia.RegistrarUsuario(objeto);
+                }
+                else
+                {
+                    respuesta = CD_Usuario.Instancia.ModificarUsuario(objeto);
+                }
             }
-            else
-            {
-                respuesta = CD_Usuario.Instancia.ModificarUsuario(objeto);
-            }
-
 
             return Json(new { resultado = respuesta }, JsonRequestBehavior.AllowGet);
         }
@@ -49,6 +52,15 @@ namespace VentasWeb.Controllers
             bool respuesta = CD_Usuario.Instancia.EliminarUsuario(id);
 
             return Json(new { resultado = respuesta }, JsonRequestBehavior.AllowGet);
+        }
+        
+
+        public bool ValidarContraseña(string texto)
+        {
+            invalido = new Regex(@"^(?=.[a-z])(?=.[A-Z])(?=.\d)(?=.[$@$!%?&#.$($)$-$])[A-Za-z\d$@$!%?&#.$($)$-$]{6,10}$");
+            if (invalido.IsMatch(texto))
+                return true;
+            return false;
         }
 
     }
