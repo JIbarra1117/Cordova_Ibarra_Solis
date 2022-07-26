@@ -20,8 +20,8 @@ namespace CapaModelo
         public int IdRol { get; set; }
         public Rol oRol { get; set; }
         public List<Menu> oListaMenu { get; set; }
-        public string Cedula { get; set; }
         public bool Activo { get; set; }
         public DateTime FechaRegistro { get; set; }
+        public string Cedula { get; set; }
     }
 }
