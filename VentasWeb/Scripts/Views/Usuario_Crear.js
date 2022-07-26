@@ -163,7 +163,7 @@ function abrirPopUpForm(json) {
 
 
 function Guardar() {
-
+    validarCedula();
     if ($("#form").valid()) {
 
         var request = {
@@ -252,7 +252,7 @@ function eliminar($id) {
 }
 
 
-function validar() {
+function validarCedula() {
     var cad = document.getElementById("txtCedula").value.trim();
     var total = 0;
     var longitud = cad.length;
@@ -272,10 +272,11 @@ function validar() {
         total = total % 10 ? 10 - total % 10 : 0;
 
         if (cad.charAt(longitud - 1) == total) {
-            //document.getElementById("txtCedula").innerHTML = ("Cedula Válida");
-
+            document.getElementById("errorCedula").innerHTML = ("Cedula Válida");
+            return true;
         } else {
-            //document.getElementById("salida").innerHTML = ("Cedula Inválida");
+            document.getElementById("errorCedula").innerHTML = ("Cedula Inválida");
+            return false;
         }
     }
 }
