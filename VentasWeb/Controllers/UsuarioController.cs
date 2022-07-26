@@ -30,7 +30,7 @@ namespace VentasWeb.Controllers
         public JsonResult Guardar(Usuario objeto)
         {
             bool respuesta = false;
-            if(ValidarContraseña(objeto.Clave)){
+            //if(ValidarContraseña(objeto.Clave)){
                 if (objeto.IdUsuario == 0)
                 {
                     objeto.Clave = Encriptar.GetSHA256(objeto.Clave);
@@ -41,7 +41,7 @@ namespace VentasWeb.Controllers
                 {
                     respuesta = CD_Usuario.Instancia.ModificarUsuario(objeto);
                 }
-            }
+           // }
 
             return Json(new { resultado = respuesta }, JsonRequestBehavior.AllowGet);
         }
