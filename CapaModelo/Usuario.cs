@@ -22,6 +22,5 @@ namespace CapaModelo
         public List<Menu> oListaMenu { get; set; }
         public bool Activo { get; set; }
         public DateTime FechaRegistro { get; set; }
-
     }
 }

@@ -10,3 +10,9 @@ C:\Users\Miguel\Desktop\VentasWeb\CapaModelo\obj\Debug\CapaModelo.csproj.Assembl
 C:\Users\Miguel\Desktop\VentasWeb\CapaModelo\obj\Debug\CapaModelo.csproj.CoreCompileInputs.cache
 C:\Users\Miguel\Desktop\VentasWeb\CapaModelo\obj\Debug\CapaModelo.dll
 C:\Users\Miguel\Desktop\VentasWeb\CapaModelo\obj\Debug\CapaModelo.pdb
+D:\6to\Aplicaciones Moviles\yuri\VentasWeb\CapaModelo\bin\Debug\CapaModelo.dll
+D:\6to\Aplicaciones Moviles\yuri\VentasWeb\CapaModelo\bin\Debug\CapaModelo.pdb
+D:\6to\Aplicaciones Moviles\yuri\VentasWeb\CapaModelo\obj\Debug\CapaModelo.csproj.AssemblyReference.cache
+D:\6to\Aplicaciones Moviles\yuri\VentasWeb\CapaModelo\obj\Debug\CapaModelo.csproj.CoreCompileInputs.cache
+D:\6to\Aplicaciones Moviles\yuri\VentasWeb\CapaModelo\obj\Debug\CapaModelo.dll
+D:\6to\Aplicaciones Moviles\yuri\VentasWeb\CapaModelo\obj\Debug\CapaModelo.pdb
