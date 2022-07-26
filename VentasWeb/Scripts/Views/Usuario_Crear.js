@@ -141,6 +141,7 @@ function abrirPopUpForm(json) {
         $("#txtClave").val(json.Clave);
         $("#cboTienda").val(json.IdTienda);
         $("#cboRol").val(json.IdRol);
+        $("#txtCedula").val(json.Cedula);
         $("#cboEstado").val(json.Activo == true ? 1 : 0);
         $("#txtClave").prop("disabled", true);
 
@@ -151,6 +152,7 @@ function abrirPopUpForm(json) {
         $("#txtClave").val("");
         $("#cboTienda").val($("#cboTienda option:first").val());
         $("#cboRol").val($("#cboRol option:first").val());
+        $("#txtCedula").val(json.Cedula);
         $("#cboEstado").val(1);
         
         $("#txtClave").prop("disabled", false);
@@ -171,6 +173,7 @@ function Guardar() {
                 Nombres: $("#txtNombres").val(),
                 Apellidos: $("#txtApellidos").val(),
                 Correo: $("#txtCorreo").val(),
+                Cedula: $("#txtCedula").val(),
                 Clave: $("#txtClave").val(),
                 IdTienda: $("#cboTienda").val(),
                 IdRol: $("#cboRol").val(),

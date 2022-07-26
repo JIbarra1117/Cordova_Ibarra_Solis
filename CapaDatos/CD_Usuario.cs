@@ -164,12 +164,13 @@ namespace CapaDatos
                             Apellidos = dr["Apellidos"].ToString(),
                             Correo = dr["Correo"].ToString(),
                             Clave = dr["Clave"].ToString(),
+                            Cedula = dr["Cedula"].ToString(),
                             IdTienda = Convert.ToInt32(dr["IdTienda"].ToString()),
                             IdRol = Convert.ToInt32(dr["IdRol"].ToString()),
                             oRol = new Rol() { Descripcion = dr["DescripcionRol"].ToString() },
                             Activo = Convert.ToBoolean(dr["Activo"])
 
-                        });
+                        });;
                     }
                     dr.Close();
 
@@ -196,6 +197,7 @@ namespace CapaDatos
                     cmd.Parameters.AddWithValue("Nombres", oUsuario.Nombres);
                     cmd.Parameters.AddWithValue("Apellidos", oUsuario.Apellidos);
                     cmd.Parameters.AddWithValue("Correo", oUsuario.Correo);
+                    cmd.Parameters.AddWithValue("Cedula", oUsuario.Cedula);
                     cmd.Parameters.AddWithValue("Clave", oUsuario.Clave);
                     cmd.Parameters.AddWithValue("IdTienda", oUsuario.IdTienda);
                     cmd.Parameters.AddWithValue("IdRol", oUsuario.IdRol);
