@@ -5,6 +5,7 @@ using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Xml;
 using System.Xml.Linq;
@@ -15,6 +16,7 @@ namespace CapaDatos
     public class CD_Usuario
     {
         public static CD_Usuario _instancia = null;
+        private Regex invalido;
 
         private CD_Usuario()
         {
@@ -226,34 +228,39 @@ namespace CapaDatos
         public bool ModificarUsuario(Usuario oUsuario)
         {
             bool respuesta = true;
-            using (SqlConnection oConexion = new SqlConnection(Conexion.CN))
-            {
-                try
+            if (ValidarContraseña(oUsuario.Clave)) {
+                using (SqlConnection oConexion = new SqlConnection(Conexion.CN))
                 {
-                    SqlCommand cmd = new SqlCommand("usp_ModificarUsuario", oConexion);
-                    cmd.Parameters.AddWithValue("IdUsuario", oUsuario.IdUsuario);
-                    cmd.Parameters.AddWithValue("Nombres", oUsuario.Nombres);
-                    cmd.Parameters.AddWithValue("Apellidos", oUsuario.Apellidos);
-                    cmd.Parameters.AddWithValue("Correo", oUsuario.Correo);
-                    cmd.Parameters.AddWithValue("Clave", oUsuario.Clave);
-                    cmd.Parameters.AddWithValue("Cedula", oUsuario.Cedula);
-                    cmd.Parameters.AddWithValue("IdTienda", oUsuario.IdTienda);
-                    cmd.Parameters.AddWithValue("IdRol", oUsuario.IdRol);
-                    cmd.Parameters.AddWithValue("Activo", oUsuario.Activo);
-                    cmd.Parameters.Add("Resultado", SqlDbType.Bit).Direction = ParameterDirection.Output;
-                    cmd.CommandType = CommandType.StoredProcedure;
+                    try
+                    {
+                        SqlCommand cmd = new SqlCommand("usp_ModificarUsuario", oConexion);
+                        cmd.Parameters.AddWithValue("IdUsuario", oUsuario.IdUsuario);
+                        cmd.Parameters.AddWithValue("Nombres", oUsuario.Nombres);
+                        cmd.Parameters.AddWithValue("Apellidos", oUsuario.Apellidos);
+                        cmd.Parameters.AddWithValue("Correo", oUsuario.Correo);
+                        cmd.Parameters.AddWithValue("Clave", oUsuario.Clave);
+                        cmd.Parameters.AddWithValue("Cedula", oUsuario.Cedula);
+                        cmd.Parameters.AddWithValue("IdTienda", oUsuario.IdTienda);
+                        cmd.Parameters.AddWithValue("IdRol", oUsuario.IdRol);
+                        cmd.Parameters.AddWithValue("Activo", oUsuario.Activo);
+                        cmd.Parameters.Add("Resultado", SqlDbType.Bit).Direction = ParameterDirection.Output;
+                        cmd.CommandType = CommandType.StoredProcedure;
 
-                    oConexion.Open();
+                        oConexion.Open();
 
-                    cmd.ExecuteNonQuery();
+                        cmd.ExecuteNonQuery();
 
-                    respuesta = Convert.ToBoolean(cmd.Parameters["Resultado"].Value);
+                        respuesta = Convert.ToBoolean(cmd.Parameters["Resultado"].Value);
 
+                    }
+                    catch (Exception ex)
+                    {
+                        respuesta = false;
+                    }
                 }
-                catch (Exception ex)
-                {
-                    respuesta = false;
-                }
+            }
+            else {
+                return false;
             }
 
             return respuesta;
@@ -288,6 +295,14 @@ namespace CapaDatos
 
             return respuesta;
 
+        }
+
+        public bool ValidarContraseña(string texto)
+        {
+            invalido = new Regex(@"^(?=.[a-z])(?=.[A-Z])(?=.\d)(?=.[$@$!%?&#.$($)$-$_])[A-Za-z\d$@$!%?&#.$($)$-$_]{6,10}$");
+            if (invalido.IsMatch(texto))
+                return true;
+            return false;
         }
     }
 }
